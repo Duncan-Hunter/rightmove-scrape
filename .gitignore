@@ -1,0 +1,9 @@
+.env
+
+# git ignore
+*.csv
+.ipynb_checkpoints
+*/.ipynb_checkpoints
+*/__pycache__
+__pycache__
+.vscode
