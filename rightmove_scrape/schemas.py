@@ -38,8 +38,8 @@ PROPERTY = Table(
     Column("postcode", String(10)),
     Column("number_bedrooms", Integer),
     Column("search_date", Date),
-    Column("search_id", UUID),
     Column("rightmove_id", Integer),
+    Column("search_id", UUID),
     Column("search_time", Time),
     Column("id", UUID, primary_key=True)
 )

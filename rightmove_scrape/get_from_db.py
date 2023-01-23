@@ -11,8 +11,10 @@ def get_search_urls(_session_maker=None):
     with _session_maker.begin() as session:
         searches = session.query(SEARCH).all()
         searches = pd.DataFrame(searches)
-        searches.set_index("id", inplace=True, drop=True)
-        return searches
+        if len(searches):
+            searches.set_index("id", inplace=True, drop=True)
+            return searches
+        return pd.DataFrame()
 
 
 # Get property data from Postgres, cache it, and return it as a dataframe

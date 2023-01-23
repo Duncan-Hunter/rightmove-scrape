@@ -6,8 +6,8 @@ import unicodedata
 import uuid
 
 from rightmove_scrape.get_from_db import get_search_urls
-from rightmove_scrape.schemas import get_engine, get_db_session_maker
-from rightmove_scrape.insert_to_db import de_duplify
+from rightmove_scrape.schemas import get_db_session_maker
+from rightmove_scrape.insert_to_db import remove_duplicates, insert_properties
 
 
 def remove_control_characters(s):
@@ -42,15 +42,9 @@ def main():
     scraped = pd.concat(dfs, axis=0)
     
     results = process_df(scraped)
-    print(results.columns)
-
     results.to_csv("recent_scrape.csv", index=False)
-
-    with get_engine().begin() as connection:
-        results.to_sql('house_prices', con=connection, if_exists='append', index=False)
-
-    de_duplify(get_db_session_maker())
-
+    insert_properties(results)
+    remove_duplicates(get_db_session_maker())
 
 
 if __name__ == "__main__":
