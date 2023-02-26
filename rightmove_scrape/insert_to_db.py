@@ -36,3 +36,18 @@ def remove_duplicates(_session_maker):
         AND a.ctid <> b.ctid;
         """)
         session.commit()
+
+
+def remove_duplicate_searches(_session_maker):
+    with _session_maker.begin() as session:
+        session.execute(f"""
+        DELETE FROM {SEARCH.name} a USING (
+            SELECT MIN(ctid) as ctid, name, search_url
+        FROM {SEARCH.name} 
+        GROUP BY name, search_url HAVING COUNT(*) > 1
+        ) b
+        WHERE a.name = b.name 
+        AND a.search_url = b.search_url
+        AND a.ctid <> b.ctid;
+        """)
+        session.commit()

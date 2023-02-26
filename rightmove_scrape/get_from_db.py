@@ -6,7 +6,6 @@ import streamlit as st
 
 
 # Get the search urls from Postgres, cache them, and return them as a dataframe
-@st.experimental_memo
 def get_search_urls(_session_maker=None):
     with _session_maker.begin() as session:
         searches = session.query(SEARCH).all()
@@ -18,7 +17,6 @@ def get_search_urls(_session_maker=None):
 
 
 # Get property data from Postgres, cache it, and return it as a dataframe
-@st.experimental_memo
 def get_property_data(_session_maker=None):
     with _session_maker.begin() as session:
         property_data = session.query(PROPERTY).all()
@@ -27,5 +25,4 @@ def get_property_data(_session_maker=None):
 
 
 if __name__== "__main__":
-    PASSWORD = config("DBPASSWORD")
     get_search_urls(get_db_session_maker())

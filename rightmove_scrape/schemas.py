@@ -6,10 +6,10 @@ from sqlalchemy import MetaData, create_engine
 from sqlalchemy.orm import sessionmaker
 import streamlit as st
 
-from config import DBUSERNAME, DBPASSWORD, DBPORT, DBHOST, DBNAME
+from rightmove_scrape.config import POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_PORT, POSTGRES_HOST, POSTGRES_DB
 
 
-ENGINE_STR = f"postgresql+psycopg2://{DBUSERNAME}:{DBPASSWORD}@{DBHOST}:{DBPORT}/{DBNAME}"
+ENGINE_STR = f"postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
 
 @st.experimental_singleton
